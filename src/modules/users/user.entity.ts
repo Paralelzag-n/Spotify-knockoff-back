@@ -1,12 +1,14 @@
-import { Column, Entity, Generated, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Album } from '../albums/album.entity';
+import { Playlist } from '../playlists/playlist.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Generated('uuid')
-  firebase_id: string;
+  // @Column()
+  // firebase_id: string;
 
   @Column()
   username: string;
@@ -25,4 +27,10 @@ export class User {
 
   @Column()
   description: string;
+
+  @OneToMany(() => Album, (album: Album) => album.user)
+  albums: Album[];
+
+  @OneToMany(() => Playlist, (playlist: Playlist) => playlist.user)
+  playlists: Playlist[];
 }
