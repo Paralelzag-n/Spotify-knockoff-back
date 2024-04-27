@@ -6,11 +6,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../users/user.entity';
-import { Song } from '../songs/song.entity';
+import { UserEntity } from '../users/user.entity';
+import { SongEntity } from '../songs/song.entity';
 
-@Entity()
-export class Album {
+@Entity('albums', { schema: 'public' })
+export class AlbumEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -29,10 +29,10 @@ export class Album {
   @Column()
   color: string;
 
-  @ManyToOne(() => User, (user: User) => user.albums)
+  @ManyToOne(() => UserEntity, (user: UserEntity) => user.albums)
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user: UserEntity;
 
-  @OneToMany(() => Song, (song: Song) => song.album)
-  songs: Song[];
+  @OneToMany(() => SongEntity, (song: SongEntity) => song.album)
+  songs: SongEntity[];
 }

@@ -1,14 +1,11 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Album } from '../albums/album.entity';
-import { Playlist } from '../playlists/playlist.entity';
+import { AlbumEntity } from '../albums/album.entity';
+import { PlaylistEntity } from '../playlists/playlist.entity';
 
-@Entity()
-export class User {
+@Entity('users', { schema: 'public' })
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  // @Column()
-  // firebase_id: string;
 
   @Column()
   username: string;
@@ -22,15 +19,21 @@ export class User {
   @Column()
   color: string;
 
-  @Column()
+  @Column({ name: 'avatar', nullable: true })
   avatar: string;
 
   @Column()
   description: string;
 
-  @OneToMany(() => Album, (album: Album) => album.user)
-  albums: Album[];
+  @Column()
+  created_at: number;
 
-  @OneToMany(() => Playlist, (playlist: Playlist) => playlist.user)
-  playlists: Playlist[];
+  @Column()
+  updated_at: number;
+
+  @OneToMany(() => AlbumEntity, (album: AlbumEntity) => album.user)
+  albums: AlbumEntity[];
+
+  @OneToMany(() => PlaylistEntity, (playlist: PlaylistEntity) => playlist.user)
+  playlists: PlaylistEntity[];
 }

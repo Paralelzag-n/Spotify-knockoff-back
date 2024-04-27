@@ -1,23 +1,23 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Album } from './album.entity';
+import { AlbumEntity } from './album.entity';
+import { UserEntity } from '../users/user.entity';
 import { CreateAlbumDto } from './dto/create-album.dto';
-import { User } from '../users/user.entity';
 
 @Injectable()
 export class AlbumsService {
   constructor(
-    @InjectRepository(Album)
-    private albumsRepository: Repository<Album>,
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(AlbumEntity)
+    private albumsRepository: Repository<AlbumEntity>,
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async createAlbum(createAlbumDto: CreateAlbumDto): Promise<Album> {
+  async createAlbum(createAlbumDto: CreateAlbumDto): Promise<AlbumEntity> {
     const { user_id, name, thumbnail, color } = createAlbumDto;
 
-    const album: Album = this.albumsRepository.create({
+    const album: AlbumEntity = this.albumsRepository.create({
       user_id,
       name,
       thumbnail,
@@ -29,8 +29,10 @@ export class AlbumsService {
     return album;
   }
 
-  async getUserAlbums(user_id: string): Promise<Album[]> {
-    const user: User = await this.usersRepository.findOneBy({ id: user_id });
+  async getUserAlbums(user_id: string): Promise<AlbumEntity[]> {
+    const user: UserEntity = await this.usersRepository.findOneBy({
+      id: user_id,
+    });
 
     if (!user) {
       throw new NotFoundException(`user with ID ${user_id} not found`);

@@ -5,10 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../users/user.entity';
+import { UserEntity } from '../users/user.entity';
 
-@Entity()
-export class Playlist {
+@Entity('playlists', { schema: 'public' })
+export class PlaylistEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -27,7 +27,7 @@ export class Playlist {
   @Column()
   description: string;
 
-  @ManyToOne(() => User, (user: User) => user.playlists)
+  @ManyToOne(() => UserEntity, (user: UserEntity) => user.playlists)
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user: UserEntity;
 }
