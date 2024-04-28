@@ -11,25 +11,34 @@ export class UserEntity {
   username: string;
 
   @Column()
+  password: string;
+
+  @Column({ default: false })
   is_artist: boolean;
 
   @Column()
   email: string;
 
-  @Column()
+  @Column({ name: 'color', default: '#FFFFFF' })
   color: string;
 
   @Column({ name: 'avatar', nullable: true })
   avatar: string;
 
-  @Column()
+  @Column({
+    default: 'Help I am chajming and tesling on my head',
+    nullable: true,
+  })
   description: string;
 
-  @Column()
-  created_at: number;
+  @Column('bigint', {
+    name: 'created_at',
+    default: Date.now(),
+  })
+  created_at: bigint;
 
-  @Column()
-  updated_at: number;
+  @Column('bigint', { name: 'updated_at', default: Date.now() })
+  updated_at: bigint;
 
   @OneToMany(() => AlbumEntity, (album: AlbumEntity) => album.user)
   albums: AlbumEntity[];

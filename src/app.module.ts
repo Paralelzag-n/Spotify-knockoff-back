@@ -6,6 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AlbumsModule } from './modules/albums/albums.module';
 import { PlaylistsModule } from './modules/playlists/playlists.module';
 import { SongsModule } from './modules/songs/songs.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SongsModule } from './modules/songs/songs.module';
     AlbumsModule,
     PlaylistsModule,
     SongsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
