@@ -7,9 +7,14 @@ import { AlbumsModule } from './modules/albums/albums.module';
 import { PlaylistsModule } from './modules/playlists/playlists.module';
 import { SongsModule } from './modules/songs/songs.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
