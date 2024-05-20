@@ -6,8 +6,13 @@ import { UserEntity } from './user.entity';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
+  @Get()
+  getUsers(): Promise<UserEntity[]> {
+    return this.usersService.getUsers();
+  }
+
   @Get('/:id')
   getUserById(@Param('id') id: string): Promise<UserEntity> {
-    return this.usersService.getTaskById(id);
+    return this.usersService.getUserById(id);
   }
 }

@@ -10,7 +10,11 @@ export class UsersService {
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async getTaskById(id: string): Promise<UserEntity> {
+  async getUsers(): Promise<UserEntity[]> {
+    return this.usersRepository.find();
+  }
+
+  async getUserById(id: string): Promise<UserEntity> {
     const found = await this.usersRepository.findOneBy({ id: id });
 
     if (!found) {
